@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, useRef, useEffect, useId } from "react";
 import { Info } from "lucide-react";
 
