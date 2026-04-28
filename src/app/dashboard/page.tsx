@@ -50,7 +50,7 @@ export default function Dashboard() {
     <div className="min-h-screen bg-zinc-950 text-zinc-100 font-sans">
       
       {/* Header */}
-      <header className="border-b border-zinc-800 px-6 py-4">
+      <header className="border-b border-zinc-800 px-6 py-3 md:py-4">
         <nav className="flex items-center justify-between max-w-5xl mx-auto">
           <Link href="/" className="text-lg font-semibold">
             ChronoPay
@@ -64,30 +64,30 @@ export default function Dashboard() {
       </header>
 
       {/* Main */}
-      <main className="max-w-5xl mx-auto px-6 py-16 space-y-10">
-        
+      <main className="max-w-5xl mx-auto px-6 py-6 md:py-8 xl:py-12 space-y-5 md:space-y-6 xl:space-y-8">
+
         {/* Title */}
         <div>
           <h1 className="text-2xl font-bold">Dashboard</h1>
-          <p className="mt-2 text-zinc-400">
+          <p className="mt-1 text-zinc-400">
             Connect your Stellar wallet to mint and trade time tokens.
           </p>
         </div>
 
         {/* Wallet Card */}
-        <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-6">
-          <h2 className="text-lg font-semibold mb-2">Wallet Status</h2>
+        <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-4 md:p-5 xl:p-6">
+          <h2 className="text-lg font-semibold mb-1.5">Wallet Status</h2>
           <p className="text-sm text-zinc-400">
             Not connected
           </p>
-          <button className="mt-4 px-4 py-2 text-sm rounded-lg bg-white text-black hover:bg-zinc-200 transition">
+          <button className="mt-3 px-4 py-2 text-sm rounded-lg bg-white text-black hover:bg-zinc-200 transition">
             Connect Wallet
           </button>
         </div>
 
         {/* Time Slots Section */}
-        <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-6">
-          <h2 className="text-lg font-semibold mb-4">Available Time Slots</h2>
+        <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-4 md:p-5 xl:p-6">
+          <h2 className="text-lg font-semibold mb-3">Available Time Slots</h2>
           <p className="text-sm text-zinc-500">
             No time slots listed yet.
           </p>
