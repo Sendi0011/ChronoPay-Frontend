@@ -11,7 +11,6 @@ import {
   QuickActions,
   slots,
   SlotList,
-  StateCard,
   wallet,
   WalletCard,
 } from "@/components/dashboard";
@@ -74,24 +73,32 @@ export default function Dashboard() {
           </p>
         </div>
 
-        {/* Wallet Card */}
-        <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-6">
-          <h2 className="text-lg font-semibold mb-2">Wallet Status</h2>
-          <p className="text-sm text-zinc-400">
-            Not connected
-          </p>
-          <button className="mt-4 px-4 py-2 text-sm rounded-lg bg-white text-black hover:bg-zinc-200 transition">
-            Connect Wallet
-          </button>
+        {/* Metrics */}
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          {metrics.map((metric) => (
+            <MetricCard key={metric.label} metric={metric} />
+          ))}
         </div>
 
-        {/* Time Slots Section */}
-        <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-6">
-          <h2 className="text-lg font-semibold mb-4">Available Time Slots</h2>
-          <p className="text-sm text-zinc-500">
-            No time slots listed yet.
-          </p>
+        {/* Wallet and Booking Progress */}
+        <div className="grid gap-6 lg:grid-cols-2">
+          <PanelShell title="Wallet">
+            <WalletCard wallet={wallet} />
+          </PanelShell>
+          <PanelShell title="Booking Progress">
+            <BookingProgress stages={bookingStages} />
+          </PanelShell>
         </div>
+
+        {/* Quick Actions */}
+        <PanelShell title="Quick Actions">
+          <QuickActions actions={quickActions} />
+        </PanelShell>
+
+        {/* Time Slots */}
+        <PanelShell title="Available Time Slots">
+          <SlotList slots={slots} />
+        </PanelShell>
 
         {/* Design QA Checklist (IMPORTANT FOR ISSUE) */}
         <DesignChecklist />

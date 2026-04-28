@@ -1,4 +1,5 @@
 import { StatusChip } from "./status-chip";
+import { Tooltip } from "../ui/tooltip";
 import type { Slot } from "./types";
 
 function mapTone(status: Slot["status"]) {
@@ -31,7 +32,10 @@ export function SlotList({ slots }: { slots: Slot[] }) {
           <div className="mt-4 flex flex-wrap gap-3 text-sm text-slate-400">
             <span>{slot.demand}</span>
             <span className="text-slate-600">•</span>
-            <span>{slot.rate}</span>
+            <span className="flex items-center gap-1">
+              {slot.rate}
+              <Tooltip content="Hourly rate in Stellar Lumens (XLM). Includes network fees and escrow protection." />
+            </span>
           </div>
         </li>
       ))}
