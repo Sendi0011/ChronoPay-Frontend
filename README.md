@@ -59,6 +59,16 @@ Open [http://localhost:3000](http://localhost:3000).
 - Loading, empty, and error states are treated as first-class layout states to avoid abrupt page shifts.
 - Interactive elements include visible focus rings and semantic headings to support keyboard and screen-reader use.
 
+## Screen reader labeling guidelines
+
+- Prefer visible text as the accessible name, then add hidden context or `aria-label` only when repeated labels would otherwise be ambiguous.
+- Pair dashboard cards, panels, and list items with `aria-labelledby` and `aria-describedby` so values, helper copy, and status chips are announced with the right context.
+- Give repeated controls unique names, especially workflow links and state buttons. Include position or state only when it helps distinguish similar items.
+- Status chips should describe the thing they qualify, such as wallet security, slot availability, or workflow state. Avoid announcing decorative helper text twice.
+- Use `aria-live="polite"` with `aria-atomic="true"` for dynamic dashboard values such as balances, booking counts, sync state, and slot availability.
+- Mark decorative icons, separators, skeleton blocks, and repeated visual CTAs with `aria-hidden="true"` when nearby labels already communicate the same action.
+- Security assumption: these changes are UI-only accessible-name and description updates. They do not alter wallet connection logic, transaction handling, API calls, authorization, or persisted user data.
+
 ## UX copywriting pass (FE-DESIGN-030)
 
 The dashboard copy was updated to improve clarity, trust, and scan speed:
