@@ -1,20 +1,7 @@
 import Link from "next/link";
 import DesignChecklist from "@/components/design/DesignChecklist";
 
-import {
-  bookingStages,
-  BookingProgress,
-  metrics,
-  MetricCard,
-  PanelShell,
-  quickActions,
-  QuickActions,
-  slots,
-  SlotList,
-  StateCard,
-  wallet,
-  WalletCard,
-} from "@/components/dashboard";
+import { slots, SlotList } from "@/components/dashboard";
 
 export default function Dashboard() {
   // Simulated states (for QA requirement)
@@ -88,9 +75,7 @@ export default function Dashboard() {
         {/* Time Slots Section */}
         <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-6">
           <h2 className="text-lg font-semibold mb-4">Available Time Slots</h2>
-          <p className="text-sm text-zinc-500">
-            No time slots listed yet.
-          </p>
+          <SlotList slots={slots} />
         </div>
 
         {/* Design QA Checklist (IMPORTANT FOR ISSUE) */}
