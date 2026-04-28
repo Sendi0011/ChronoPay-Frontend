@@ -52,6 +52,14 @@ Open [http://localhost:3000](http://localhost:3000).
 - `src/app/layout.tsx` - Root layout and metadata
 - `public/` - Static assets
 
+## Accessibility baseline
+
+- **Skip link** — A "Skip to content" link is the first focusable element in every page. It is visually hidden until focused (`sr-only` / `focus:not-sr-only`) and targets `#main-content`.
+- **Landmark regions** — `<header>` wraps the top nav; `<main id="main-content">` wraps primary page content; `<nav>` is nested inside the header. This gives screen readers a consistent landmark map on every route.
+- **Focus visibility** — Interactive elements carry visible focus rings (Tailwind `focus:ring-*`). The skip link renders a high-contrast cyan badge on focus so keyboard users can always see it.
+- **Heading hierarchy** — Each page starts at `<h1>` and does not skip levels.
+- **Validation** — Changes were verified with `npm run lint && npm run build`. Manual keyboard-tab testing confirms the skip link appears on first Tab press and moves focus to `#main-content` on Enter.
+
 ## Dashboard design notes
 
 - The overview is split into small presentational components so the UI is easy to review and extend.
