@@ -31,8 +31,10 @@ export type BookingStage = {
 };
 
 export type WalletSnapshot = {
-  balance: string;
-  pending: string;
-  nextPayout: string;
+  connection: "connected" | "disconnected" | "error";
+  address?: string;
+  balance?: string;
+  pending?: string;
+  nextPayout?: string;
   status: string;
 };

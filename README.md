@@ -63,11 +63,12 @@ Open [http://localhost:3000](http://localhost:3000).
 
 The dashboard copy was updated to improve clarity, trust, and scan speed:
 
-- Stronger intent labels (for example, `Connect Wallet` and `View booking details`)
-- State-aware microcopy for loading and empty states
+- Stronger intent labels (for example, `Connect Wallet` and `Review wallet`)
+- State-aware wallet microcopy for connected, disconnected, and error states
+- Explicit wording to clarify that no transactions occur until the user confirms them
 - Added helper text to explain booking and wallet flow in plain language
 
-Scope is intentionally lightweight and contained to `src/app/dashboard/page.tsx` for easy review.
+Scope is intentionally lightweight and contained to `src/app/dashboard/page.tsx` and `src/components/dashboard/wallet-card.tsx` for easy review.
 
 ## Contributing
 

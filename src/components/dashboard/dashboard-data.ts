@@ -61,6 +61,8 @@ export const slots: Slot[] = [
 ];
 
 export const wallet: WalletSnapshot = {
+  connection: "connected",
+  address: "GCDQ7M3F6JH2K4N8Q5RLP9TZB3YH4W8F1S7N6U0X2A5V8E1C",
   balance: "1,240 XLM",
   pending: "180 XLM",
   nextPayout: "Friday, April 4",

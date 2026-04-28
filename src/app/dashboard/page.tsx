@@ -1,20 +1,6 @@
 import Link from "next/link";
 import DesignChecklist from "@/components/design/DesignChecklist";
-
-import {
-  bookingStages,
-  BookingProgress,
-  metrics,
-  MetricCard,
-  PanelShell,
-  quickActions,
-  QuickActions,
-  slots,
-  SlotList,
-  StateCard,
-  wallet,
-  WalletCard,
-} from "@/components/dashboard";
+import { wallet, WalletCard } from "@/components/dashboard";
 
 export default function Dashboard() {
   // Simulated states (for QA requirement)
@@ -75,15 +61,7 @@ export default function Dashboard() {
         </div>
 
         {/* Wallet Card */}
-        <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-6">
-          <h2 className="text-lg font-semibold mb-2">Wallet Status</h2>
-          <p className="text-sm text-zinc-400">
-            Not connected
-          </p>
-          <button className="mt-4 px-4 py-2 text-sm rounded-lg bg-white text-black hover:bg-zinc-200 transition">
-            Connect Wallet
-          </button>
-        </div>
+        <WalletCard wallet={wallet} />
 
         {/* Time Slots Section */}
         <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-6">
