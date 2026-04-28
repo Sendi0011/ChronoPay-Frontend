@@ -52,6 +52,23 @@ Open [http://localhost:3000](http://localhost:3000).
 - `src/app/layout.tsx` - Root layout and metadata
 - `public/` - Static assets
 
+## Responsive layout rules
+
+The dashboard is designed mobile-first with Tailwind CSS breakpoints. Key rules of thumb:
+
+| Concern | Rule |
+| --- | --- |
+| **Base width** | Minimum supported width is 320 px (iPhone SE). All layouts must not overflow or hide content below this. |
+| **Panel padding** | `p-4` at base, `sm:p-5` at 640 px, `xl:p-6` at 1280 px — keeps content from touching edges on small screens. |
+| **Metric cards** | `grid-cols-1` below 640 px, `sm:grid-cols-2` from 640 px — always stack cleanly, never truncate values. |
+| **Quick actions** | `grid-cols-1` → `sm:grid-cols-2` → `md:grid-cols-3` — three breakpoints prevent the 1→3 jump that wastes space on tablet. |
+| **Wallet + Booking panels** | Stack (`grid-cols-1`) by default, side-by-side (`lg:grid-cols-2`) from 1024 px — priority order is wallet first. |
+| **Slot list** | Title `div` uses `min-w-0` + `truncate` so long slot names never break the layout; status chip stays on its own line below 768 px. |
+| **Wallet balance** | `text-2xl` at base, `sm:text-3xl` at 640 px with `min-w-0 truncate` — large XLM numbers don't overflow at 320 px. |
+| **Section spacing** | `space-y-6` at base, `sm:space-y-8`, `md:space-y-10` — reduces vertical scroll fatigue on small screens. |
+| **Header/main padding** | `px-4` at base, `sm:px-6` from 640 px — consistent 16 px gutter on mobile. |
+| **Long text** | Use `min-w-0` on flex children that contain text to prevent flex blowout. Prefer `truncate` for single-line labels; `leading-6` for multi-line detail copy. |
+
 ## Dashboard design notes
 
 - The overview is split into small presentational components so the UI is easy to review and extend.

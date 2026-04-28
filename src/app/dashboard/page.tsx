@@ -1,5 +1,4 @@
 import Link from "next/link";
-import DesignChecklist from "@/components/design/DesignChecklist";
 
 import {
   bookingStages,
@@ -48,9 +47,9 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100 font-sans">
-      
+
       {/* Header */}
-      <header className="border-b border-zinc-800 px-6 py-4">
+      <header className="border-b border-zinc-800 px-4 py-4 sm:px-6">
         <nav className="flex items-center justify-between max-w-5xl mx-auto">
           <Link href="/" className="text-lg font-semibold">
             ChronoPay
@@ -64,37 +63,53 @@ export default function Dashboard() {
       </header>
 
       {/* Main */}
-      <main className="max-w-5xl mx-auto px-6 py-16 space-y-10">
-        
+      <main className="max-w-5xl mx-auto px-4 py-8 space-y-6 sm:px-6 sm:py-12 sm:space-y-8 md:py-16 md:space-y-10">
+
         {/* Title */}
         <div>
-          <h1 className="text-2xl font-bold">Dashboard</h1>
-          <p className="mt-2 text-zinc-400">
+          <h1 className="text-xl font-bold sm:text-2xl">Dashboard</h1>
+          <p className="mt-2 text-sm text-zinc-400 sm:text-base">
             Connect your Stellar wallet to mint and trade time tokens.
           </p>
         </div>
 
-        {/* Wallet Card */}
-        <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-6">
-          <h2 className="text-lg font-semibold mb-2">Wallet Status</h2>
-          <p className="text-sm text-zinc-400">
-            Not connected
-          </p>
-          <button className="mt-4 px-4 py-2 text-sm rounded-lg bg-white text-black hover:bg-zinc-200 transition">
-            Connect Wallet
-          </button>
+        {/* Metrics grid — 1 col on mobile, 2 cols on sm+ */}
+        <PanelShell title="Overview" eyebrow="At a glance">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            {metrics.map((metric) => (
+              <MetricCard key={metric.label} metric={metric} />
+            ))}
+          </div>
+        </PanelShell>
+
+        {/* Wallet + Booking Progress — stacked on mobile, side-by-side on lg+ */}
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+          <PanelShell title="Wallet" eyebrow="Balance">
+            <WalletCard wallet={wallet} />
+          </PanelShell>
+          <PanelShell title="Booking pipeline" eyebrow="Stages">
+            <BookingProgress stages={bookingStages} />
+          </PanelShell>
         </div>
 
-        {/* Time Slots Section */}
-        <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-6">
-          <h2 className="text-lg font-semibold mb-4">Available Time Slots</h2>
-          <p className="text-sm text-zinc-500">
-            No time slots listed yet.
-          </p>
-        </div>
+        {/* Quick Actions */}
+        <PanelShell title="Quick actions" eyebrow="Shortcuts">
+          <QuickActions actions={quickActions} />
+        </PanelShell>
 
-        {/* Design QA Checklist (IMPORTANT FOR ISSUE) */}
-        <DesignChecklist />
+        {/* Time Slots */}
+        <PanelShell title="Available time slots" eyebrow="Open slots">
+          <SlotList slots={slots} />
+        </PanelShell>
+
+        {/* Design QA: loading / empty / error states */}
+        <PanelShell title="Dashboard states" eyebrow="Design QA">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <StateCard state="loading" />
+            <StateCard state="empty" />
+            <StateCard state="error" />
+          </div>
+        </PanelShell>
 
       </main>
     </div>
