@@ -1,5 +1,5 @@
 import { StatusChip } from "./status-chip";
-import { Tooltip } from "../ui/tooltip";
+import { Tooltip } from "@/app/components/ui/tooltip";
 import type { WalletSnapshot } from "./types";
 
 export function WalletCard({ wallet }: { wallet: WalletSnapshot }) {

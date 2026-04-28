@@ -1,5 +1,5 @@
 import { StatusChip } from "./status-chip";
-import { Tooltip } from "../ui/tooltip";
+import { Tooltip } from "@/app/components/ui/tooltip";
 import type { Slot } from "./types";
 
 function mapTone(status: Slot["status"]) {

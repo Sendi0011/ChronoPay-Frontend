@@ -1,4 +1,4 @@
-import { Tooltip } from "../ui/tooltip";
+import { Tooltip } from "@/app/components/ui/tooltip";
 import type { BookingStage } from "./types";
 
 export function BookingProgress({ stages }: { stages: BookingStage[] }) {
