@@ -1,5 +1,4 @@
 import Link from "next/link";
-import DesignChecklist from "@/components/design/DesignChecklist";
 
 import {
   bookingStages,
@@ -11,7 +10,6 @@ import {
   QuickActions,
   slots,
   SlotList,
-  StateCard,
   wallet,
   WalletCard,
 } from "@/components/dashboard";
@@ -24,7 +22,11 @@ export default function Dashboard() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center text-zinc-400">
+      <div
+        className="min-h-screen flex items-center justify-center text-zinc-400"
+        role="status"
+        aria-live="polite"
+      >
         Loading dashboard...
       </div>
     );
@@ -32,7 +34,10 @@ export default function Dashboard() {
 
   if (error) {
     return (
-      <div className="min-h-screen flex items-center justify-center text-red-500">
+      <div
+        className="min-h-screen flex items-center justify-center text-red-500"
+        role="alert"
+      >
         Something went wrong.
       </div>
     );
@@ -40,7 +45,10 @@ export default function Dashboard() {
 
   if (!hasData) {
     return (
-      <div className="min-h-screen flex items-center justify-center text-zinc-400">
+      <div
+        className="min-h-screen flex items-center justify-center text-zinc-400"
+        role="status"
+      >
         No data available.
       </div>
     );
@@ -48,9 +56,9 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100 font-sans">
-      
+
       {/* Header */}
-      <header className="border-b border-zinc-800 px-6 py-3 md:py-4">
+      <header className="border-b border-zinc-800 px-4 py-4 sm:px-6">
         <nav className="flex items-center justify-between max-w-5xl mx-auto">
           <Link href="/" className="text-lg font-semibold">
             ChronoPay
@@ -64,34 +72,42 @@ export default function Dashboard() {
       </header>
 
       {/* Main */}
-      <main className="max-w-5xl mx-auto px-6 py-6 md:py-8 xl:py-12 space-y-5 md:space-y-6 xl:space-y-8">
+      <main className="max-w-5xl mx-auto px-4 py-8 space-y-6 sm:px-6 sm:py-12 sm:space-y-8 md:py-16 md:space-y-10">
 
         {/* Title */}
         <div>
-          <h1 className="text-2xl font-bold">Dashboard</h1>
-          <p className="mt-1 text-zinc-400">
+          <h1 className="text-xl font-bold sm:text-2xl">Dashboard</h1>
+          <p className="mt-2 text-sm text-zinc-400 sm:text-base">
             Connect your Stellar wallet to mint and trade time tokens.
           </p>
         </div>
 
-        {/* Wallet Card */}
-        <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-4 md:p-5 xl:p-6">
-          <h2 className="text-lg font-semibold mb-1.5">Wallet Status</h2>
-          <p className="text-sm text-zinc-400">
-            Not connected
-          </p>
-          <button className="mt-3 px-4 py-2 text-sm rounded-lg bg-white text-black hover:bg-zinc-200 transition">
-            Connect Wallet
-          </button>
+        {/* Metrics */}
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          {metrics.map((metric) => (
+            <MetricCard key={metric.label} metric={metric} />
+          ))}
         </div>
 
-        {/* Time Slots Section */}
-        <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-4 md:p-5 xl:p-6">
-          <h2 className="text-lg font-semibold mb-3">Available Time Slots</h2>
-          <p className="text-sm text-zinc-500">
-            No time slots listed yet.
-          </p>
+        {/* Wallet and Booking Progress */}
+        <div className="grid gap-6 lg:grid-cols-2">
+          <PanelShell title="Wallet">
+            <WalletCard wallet={wallet} />
+          </PanelShell>
+          <PanelShell title="Booking Progress">
+            <BookingProgress stages={bookingStages} />
+          </PanelShell>
         </div>
+
+        {/* Quick Actions */}
+        <PanelShell title="Quick Actions">
+          <QuickActions actions={quickActions} />
+        </PanelShell>
+
+        {/* Time Slots */}
+        <PanelShell title="Available Time Slots">
+          <SlotList slots={slots} />
+        </PanelShell>
 
         {/* Design QA Checklist (IMPORTANT FOR ISSUE) */}
         <DesignChecklist />
