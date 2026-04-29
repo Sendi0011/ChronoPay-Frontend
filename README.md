@@ -67,6 +67,24 @@ Open [http://localhost:3000](http://localhost:3000).
 - Loading, empty, and error states are treated as first-class layout states to avoid abrupt page shifts.
 - Interactive elements include visible focus rings and semantic headings to support keyboard and screen-reader use.
 
+## Help text / tooltip pattern
+
+For complex concepts like booking progress, wallet state, and fees, we use accessible help tooltips:
+
+- **Trigger**: Info icon (question mark) button with hover/focus/click support
+- **Accessibility**: ARIA `tooltip` role, `aria-describedby`, keyboard navigation (Enter/Space to toggle, Escape to close)
+- **Content guidelines**: Keep tooltips concise (1-2 sentences), explain terms in plain language, avoid jargon
+- **Implementation**: `Tooltip` component in `src/app/components/ui/tooltip.tsx`
+- **Usage**: Place next to labels or terms that need explanation
+
+Example:
+```tsx
+<dt className="text-slate-300 flex items-center gap-2">
+  Pending escrow
+  <Tooltip content="Time tokens held in escrow for active bookings. Released upon completion or cancellation." />
+</dt>
+```
+
 ## UX copywriting pass (FE-DESIGN-030)
 
 The dashboard copy was updated to improve clarity, trust, and scan speed:

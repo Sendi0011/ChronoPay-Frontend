@@ -1,4 +1,5 @@
 import { StatusChip } from "./status-chip";
+import { Tooltip } from "@/app/components/ui/tooltip";
 import type { WalletSnapshot } from "./types";
 
 export function WalletCard({ wallet }: { wallet: WalletSnapshot }) {
@@ -15,11 +16,17 @@ export function WalletCard({ wallet }: { wallet: WalletSnapshot }) {
       </div>
       <dl className="mt-6 space-y-4">
         <div className="flex items-center justify-between gap-4 text-sm">
-          <dt className="text-slate-300">Pending escrow</dt>
+          <dt className="text-slate-300 flex items-center gap-2">
+            Pending escrow
+            <Tooltip content="Time tokens held in escrow for active bookings. Released upon completion or cancellation." />
+          </dt>
           <dd className="font-medium text-white">{wallet.pending}</dd>
         </div>
         <div className="flex items-center justify-between gap-4 text-sm">
-          <dt className="text-slate-300">Next payout</dt>
+          <dt className="text-slate-300 flex items-center gap-2">
+            Next payout
+            <Tooltip content="Scheduled release of earnings from completed time token transactions." />
+          </dt>
           <dd className="font-medium text-white">{wallet.nextPayout}</dd>
         </div>
       </dl>
