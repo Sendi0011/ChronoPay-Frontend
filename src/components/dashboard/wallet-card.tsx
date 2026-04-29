@@ -2,7 +2,38 @@ import { StatusChip } from "./status-chip";
 import { Tooltip } from "@/app/components/ui/tooltip";
 import type { WalletSnapshot } from "./types";
 
+const statusTone = {
+  connected: "positive",
+  disconnected: "warning",
+  error: "critical",
+} as const;
+
+const actionLabel = {
+  connected: "Review wallet",
+  disconnected: "Connect wallet",
+  error: "Retry connection",
+} as const;
+
+const statusCopy = {
+  connected:
+    "Your wallet is linked for viewing balance and payout details. No transfers happen without your explicit authorization.",
+  disconnected:
+    "Connect your Stellar wallet to start minting and managing time-token bookings in ChronoPay.",
+  error:
+    "Wallet connection was interrupted. Retry to refresh your connection before continuing.",
+} as const;
+
+function truncateAddress(address: string) {
+  if (address.length <= 24) {
+    return address;
+  }
+
+  return `${address.slice(0, 10)}…${address.slice(-10)}`;
+}
+
 export function WalletCard({ wallet }: { wallet: WalletSnapshot }) {
+  const showDetails = wallet.connection === "connected";
+
   return (
     <article className="rounded-[24px] border border-cyan-400/20 bg-[linear-gradient(160deg,rgba(14,116,144,0.18),rgba(15,23,42,0.92))] p-5">
       <div className="flex items-start justify-between gap-4">
@@ -12,7 +43,14 @@ export function WalletCard({ wallet }: { wallet: WalletSnapshot }) {
             {wallet.balance}
           </p>
         </div>
-        <StatusChip tone="neutral">secured</StatusChip>
+
+        <StatusChip tone={statusTone[wallet.connection]}>
+          {wallet.connection === "connected"
+            ? "Connected"
+            : wallet.connection === "error"
+            ? "Connection issue"
+            : "Disconnected"}
+        </StatusChip>
       </div>
       <dl className="mt-6 space-y-4">
         <div className="flex items-center justify-between gap-4 text-sm">
