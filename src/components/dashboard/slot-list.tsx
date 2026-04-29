@@ -65,7 +65,7 @@ export function SlotList({
             </div>
             <StatusChip tone={mapTone(slot.status)}>{slot.status}</StatusChip>
           </div>
-          <div className="mt-4 flex flex-wrap gap-3 text-sm text-slate-400">
+          <div className="helper-text helper-text--muted mt-4 flex flex-wrap gap-3">
             <span>{slot.demand}</span>
             <span className="text-slate-600">•</span>
             <span className="flex items-center gap-1">
