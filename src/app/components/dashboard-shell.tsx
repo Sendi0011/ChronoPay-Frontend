@@ -32,7 +32,7 @@ export function DashboardShell({ children }: DashboardShellProps) {
           </div>
         </nav>
       </header>
-      <main className="mx-auto max-w-6xl px-5 py-10 sm:px-6 sm:py-14">{children}</main>
+      <main id="main-content" className="mx-auto max-w-6xl px-5 py-10 sm:px-6 sm:py-14">{children}</main>
     </div>
   );
 }
