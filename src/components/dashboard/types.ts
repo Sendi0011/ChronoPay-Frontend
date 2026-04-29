@@ -5,10 +5,12 @@ export type AvailabilityLevel = "Healthy" | "Tight" | "Busy";
 export type Slot = {
   id: string;
   title: string;
-  window: string;
+  dateLabel: string;
+  timeRange: string;
   demand: string;
   rate: string;
   status: AvailabilityLevel;
+  isNextAvailable?: boolean;
 };
 
 export type QuickAction = {

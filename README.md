@@ -66,6 +66,10 @@ Open [http://localhost:3000](http://localhost:3000).
 - Key metrics, wallet status, booking progress, and quick actions stay visible without sacrificing mobile readability.
 - Loading, empty, and error states are treated as first-class layout states to avoid abrupt page shifts.
 - Interactive elements include visible focus rings and semantic headings to support keyboard and screen-reader use.
+- Slot rows use fixed grid columns, `font-mono`, and `tabular-nums` for dates, times, and rates so buyers can scan availability without columns drifting.
+- Slot titles may wrap, but metadata columns keep stable widths; mobile uses horizontal overflow instead of compressing key values into unreadable text.
+- Empty slot views distinguish between no inventory and no filtered results, with microcopy that tells the user whether to add availability or widen filters.
+- Slot list data is rendered as text-only React content with no HTML injection, preserving the UI-only security boundary for availability labels and filter copy.
 
 ## Help text / tooltip pattern
 

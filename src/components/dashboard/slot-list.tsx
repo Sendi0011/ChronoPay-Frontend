@@ -23,11 +23,40 @@ function toElementId(value: string) {
 
 export function SlotList({ slots }: { slots: Slot[] }) {
   return (
-    <ul className="space-y-3" aria-label="Available time slots">
-      {slots.map((slot) => (
-        <li
-          key={slot.id}
-          className="rounded-[22px] border border-white/10 bg-white/5 p-4"
+    <div className="rounded-2xl border border-dashed border-white/15 bg-white/[0.03] px-5 py-8 text-center">
+      <p className="text-sm font-semibold text-white">
+        {filtered ? "No slots match these filters." : "No time slots listed yet."}
+      </p>
+      <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-slate-400">
+        {filtered
+          ? `Try widening ${filterLabel ?? "the current filters"} to bring more availability back into view.`
+          : "Add an availability block when you are ready to sell or reserve time."}
+      </p>
+    </div>
+  );
+}
+
+export function SlotList({
+  slots,
+  totalSlotCount = slots.length,
+  filterLabel,
+}: {
+  slots: Slot[];
+  totalSlotCount?: number;
+  filterLabel?: string;
+}) {
+  if (slots.length === 0) {
+    return (
+      <SlotState filtered={totalSlotCount > 0} filterLabel={filterLabel} />
+    );
+  }
+
+  return (
+    <div className="overflow-x-auto">
+      <div className="min-w-[46rem]">
+        <div
+          className="grid grid-cols-[minmax(14rem,1.7fr)_8rem_8.5rem_9rem_7.5rem] items-center gap-4 px-4 pb-2 text-xs font-semibold uppercase tracking-[0.18em] text-slate-500"
+          aria-hidden="true"
         >
           <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
             <div className="min-w-0">
