@@ -23,8 +23,8 @@ export function SlotList({ slots }: { slots: Slot[] }) {
           className="rounded-[22px] border border-white/10 bg-white/5 p-4"
         >
           <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-            <div>
-              <h3 className="text-base font-semibold text-white">{slot.title}</h3>
+            <div className="min-w-0">
+              <h3 className="truncate text-base font-semibold text-white">{slot.title}</h3>
               <p className="mt-1 text-sm text-slate-300">{slot.window}</p>
             </div>
             <StatusChip tone={mapTone(slot.status)}>{slot.status}</StatusChip>

@@ -1,5 +1,4 @@
 import Link from "next/link";
-import DesignChecklist from "@/components/design/DesignChecklist";
 
 import {
   bookingStages,
@@ -47,9 +46,9 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100 font-sans">
-      
+
       {/* Header */}
-      <header className="border-b border-zinc-800 px-6 py-4">
+      <header className="border-b border-zinc-800 px-4 py-4 sm:px-6">
         <nav className="flex items-center justify-between max-w-5xl mx-auto">
           <Link href="/" className="text-lg font-semibold">
             ChronoPay
@@ -63,12 +62,12 @@ export default function Dashboard() {
       </header>
 
       {/* Main */}
-      <main className="max-w-5xl mx-auto px-6 py-16 space-y-10">
-        
+      <main className="max-w-5xl mx-auto px-4 py-8 space-y-6 sm:px-6 sm:py-12 sm:space-y-8 md:py-16 md:space-y-10">
+
         {/* Title */}
         <div>
-          <h1 className="text-2xl font-bold">Dashboard</h1>
-          <p className="mt-2 text-zinc-400">
+          <h1 className="text-xl font-bold sm:text-2xl">Dashboard</h1>
+          <p className="mt-2 text-sm text-zinc-400 sm:text-base">
             Connect your Stellar wallet to mint and trade time tokens.
           </p>
         </div>

@@ -6,9 +6,9 @@ export function WalletCard({ wallet }: { wallet: WalletSnapshot }) {
   return (
     <article className="rounded-[24px] border border-cyan-400/20 bg-[linear-gradient(160deg,rgba(14,116,144,0.18),rgba(15,23,42,0.92))] p-5">
       <div className="flex items-start justify-between gap-4">
-        <div>
+        <div className="min-w-0">
           <p className="text-sm text-cyan-100/80">Primary wallet</p>
-          <p className="mt-3 text-3xl font-semibold tracking-tight text-white">
+          <p className="mt-3 truncate text-2xl font-semibold tracking-tight text-white sm:text-3xl">
             {wallet.balance}
           </p>
         </div>
