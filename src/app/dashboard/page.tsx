@@ -10,7 +10,6 @@ import {
   QuickActions,
   slots,
   SlotList,
-  StateCard,
   wallet,
   WalletCard,
 } from "@/components/dashboard";
@@ -73,43 +72,35 @@ export default function Dashboard() {
           </p>
         </div>
 
-        {/* Metrics grid — 1 col on mobile, 2 cols on sm+ */}
-        <PanelShell title="Overview" eyebrow="At a glance">
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            {metrics.map((metric) => (
-              <MetricCard key={metric.label} metric={metric} />
-            ))}
-          </div>
-        </PanelShell>
+        {/* Metrics */}
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          {metrics.map((metric) => (
+            <MetricCard key={metric.label} metric={metric} />
+          ))}
+        </div>
 
-        {/* Wallet + Booking Progress — stacked on mobile, side-by-side on lg+ */}
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-          <PanelShell title="Wallet" eyebrow="Balance">
+        {/* Wallet and Booking Progress */}
+        <div className="grid gap-6 lg:grid-cols-2">
+          <PanelShell title="Wallet">
             <WalletCard wallet={wallet} />
           </PanelShell>
-          <PanelShell title="Booking pipeline" eyebrow="Stages">
+          <PanelShell title="Booking Progress">
             <BookingProgress stages={bookingStages} />
           </PanelShell>
         </div>
 
         {/* Quick Actions */}
-        <PanelShell title="Quick actions" eyebrow="Shortcuts">
+        <PanelShell title="Quick Actions">
           <QuickActions actions={quickActions} />
         </PanelShell>
 
         {/* Time Slots */}
-        <PanelShell title="Available time slots" eyebrow="Open slots">
+        <PanelShell title="Available Time Slots">
           <SlotList slots={slots} />
         </PanelShell>
 
-        {/* Design QA: loading / empty / error states */}
-        <PanelShell title="Dashboard states" eyebrow="Design QA">
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            <StateCard state="loading" />
-            <StateCard state="empty" />
-            <StateCard state="error" />
-          </div>
-        </PanelShell>
+        {/* Design QA Checklist (IMPORTANT FOR ISSUE) */}
+        <DesignChecklist />
 
       </main>
     </div>

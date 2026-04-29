@@ -1,3 +1,4 @@
+import { Tooltip } from "@/app/components/ui/tooltip";
 import type { BookingStage } from "./types";
 
 export function BookingProgress({ stages }: { stages: BookingStage[] }) {
@@ -8,7 +9,18 @@ export function BookingProgress({ stages }: { stages: BookingStage[] }) {
       {stages.map((stage) => (
         <div key={stage.label}>
           <div className="mb-2 flex items-center justify-between gap-3">
-            <p className="text-sm font-medium text-white">{stage.label}</p>
+            <div className="flex items-center gap-2">
+              <p className="text-sm font-medium text-white">{stage.label}</p>
+              <Tooltip
+                content={
+                  stage.label === "Reserved"
+                    ? "Time slots requested but not yet confirmed by you."
+                    : stage.label === "Confirmed"
+                    ? "Bookings approved and scheduled for delivery."
+                    : "Successfully completed time token transactions."
+                }
+              />
+            </div>
             <p className="text-sm text-slate-300">{stage.value} bookings</p>
           </div>
           <div

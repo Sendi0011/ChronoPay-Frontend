@@ -52,22 +52,13 @@ Open [http://localhost:3000](http://localhost:3000).
 - `src/app/layout.tsx` - Root layout and metadata
 - `public/` - Static assets
 
-## Responsive layout rules
+## Accessibility baseline
 
-The dashboard is designed mobile-first with Tailwind CSS breakpoints. Key rules of thumb:
-
-| Concern | Rule |
-| --- | --- |
-| **Base width** | Minimum supported width is 320 px (iPhone SE). All layouts must not overflow or hide content below this. |
-| **Panel padding** | `p-4` at base, `sm:p-5` at 640 px, `xl:p-6` at 1280 px — keeps content from touching edges on small screens. |
-| **Metric cards** | `grid-cols-1` below 640 px, `sm:grid-cols-2` from 640 px — always stack cleanly, never truncate values. |
-| **Quick actions** | `grid-cols-1` → `sm:grid-cols-2` → `md:grid-cols-3` — three breakpoints prevent the 1→3 jump that wastes space on tablet. |
-| **Wallet + Booking panels** | Stack (`grid-cols-1`) by default, side-by-side (`lg:grid-cols-2`) from 1024 px — priority order is wallet first. |
-| **Slot list** | Title `div` uses `min-w-0` + `truncate` so long slot names never break the layout; status chip stays on its own line below 768 px. |
-| **Wallet balance** | `text-2xl` at base, `sm:text-3xl` at 640 px with `min-w-0 truncate` — large XLM numbers don't overflow at 320 px. |
-| **Section spacing** | `space-y-6` at base, `sm:space-y-8`, `md:space-y-10` — reduces vertical scroll fatigue on small screens. |
-| **Header/main padding** | `px-4` at base, `sm:px-6` from 640 px — consistent 16 px gutter on mobile. |
-| **Long text** | Use `min-w-0` on flex children that contain text to prevent flex blowout. Prefer `truncate` for single-line labels; `leading-6` for multi-line detail copy. |
+- **Skip link** — A "Skip to content" link is the first focusable element in every page. It is visually hidden until focused (`sr-only` / `focus:not-sr-only`) and targets `#main-content`.
+- **Landmark regions** — `<header>` wraps the top nav; `<main id="main-content">` wraps primary page content; `<nav>` is nested inside the header. This gives screen readers a consistent landmark map on every route.
+- **Focus visibility** — Interactive elements carry visible focus rings (Tailwind `focus:ring-*`). The skip link renders a high-contrast cyan badge on focus so keyboard users can always see it.
+- **Heading hierarchy** — Each page starts at `<h1>` and does not skip levels.
+- **Validation** — Changes were verified with `npm run lint && npm run build`. Manual keyboard-tab testing confirms the skip link appears on first Tab press and moves focus to `#main-content` on Enter.
 
 ## Dashboard design notes
 
@@ -75,6 +66,24 @@ The dashboard is designed mobile-first with Tailwind CSS breakpoints. Key rules 
 - Key metrics, wallet status, booking progress, and quick actions stay visible without sacrificing mobile readability.
 - Loading, empty, and error states are treated as first-class layout states to avoid abrupt page shifts.
 - Interactive elements include visible focus rings and semantic headings to support keyboard and screen-reader use.
+
+## Help text / tooltip pattern
+
+For complex concepts like booking progress, wallet state, and fees, we use accessible help tooltips:
+
+- **Trigger**: Info icon (question mark) button with hover/focus/click support
+- **Accessibility**: ARIA `tooltip` role, `aria-describedby`, keyboard navigation (Enter/Space to toggle, Escape to close)
+- **Content guidelines**: Keep tooltips concise (1-2 sentences), explain terms in plain language, avoid jargon
+- **Implementation**: `Tooltip` component in `src/app/components/ui/tooltip.tsx`
+- **Usage**: Place next to labels or terms that need explanation
+
+Example:
+```tsx
+<dt className="text-slate-300 flex items-center gap-2">
+  Pending escrow
+  <Tooltip content="Time tokens held in escrow for active bookings. Released upon completion or cancellation." />
+</dt>
+```
 
 ## UX copywriting pass (FE-DESIGN-030)
 
