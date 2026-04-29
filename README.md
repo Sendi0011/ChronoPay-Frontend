@@ -52,6 +52,14 @@ Open [http://localhost:3000](http://localhost:3000).
 - `src/app/layout.tsx` - Root layout and metadata
 - `public/` - Static assets
 
+## Accessibility baseline
+
+- **Skip link** — A "Skip to content" link is the first focusable element in every page. It is visually hidden until focused (`sr-only` / `focus:not-sr-only`) and targets `#main-content`.
+- **Landmark regions** — `<header>` wraps the top nav; `<main id="main-content">` wraps primary page content; `<nav>` is nested inside the header. This gives screen readers a consistent landmark map on every route.
+- **Focus visibility** — Interactive elements carry visible focus rings (Tailwind `focus:ring-*`). The skip link renders a high-contrast cyan badge on focus so keyboard users can always see it.
+- **Heading hierarchy** — Each page starts at `<h1>` and does not skip levels.
+- **Validation** — Changes were verified with `npm run lint && npm run build`. Manual keyboard-tab testing confirms the skip link appears on first Tab press and moves focus to `#main-content` on Enter.
+
 ## Dashboard design notes
 
 - The overview is split into small presentational components so the UI is easy to review and extend.
@@ -59,25 +67,34 @@ Open [http://localhost:3000](http://localhost:3000).
 - Loading, empty, and error states are treated as first-class layout states to avoid abrupt page shifts.
 - Interactive elements include visible focus rings and semantic headings to support keyboard and screen-reader use.
 
-## Screen reader labeling guidelines
+## Help text / tooltip pattern
 
-- Prefer visible text as the accessible name, then add hidden context or `aria-label` only when repeated labels would otherwise be ambiguous.
-- Pair dashboard cards, panels, and list items with `aria-labelledby` and `aria-describedby` so values, helper copy, and status chips are announced with the right context.
-- Give repeated controls unique names, especially workflow links and state buttons. Include position or state only when it helps distinguish similar items.
-- Status chips should describe the thing they qualify, such as wallet security, slot availability, or workflow state. Avoid announcing decorative helper text twice.
-- Use `aria-live="polite"` with `aria-atomic="true"` for dynamic dashboard values such as balances, booking counts, sync state, and slot availability.
-- Mark decorative icons, separators, skeleton blocks, and repeated visual CTAs with `aria-hidden="true"` when nearby labels already communicate the same action.
-- Security assumption: these changes are UI-only accessible-name and description updates. They do not alter wallet connection logic, transaction handling, API calls, authorization, or persisted user data.
+For complex concepts like booking progress, wallet state, and fees, we use accessible help tooltips:
+
+- **Trigger**: Info icon (question mark) button with hover/focus/click support
+- **Accessibility**: ARIA `tooltip` role, `aria-describedby`, keyboard navigation (Enter/Space to toggle, Escape to close)
+- **Content guidelines**: Keep tooltips concise (1-2 sentences), explain terms in plain language, avoid jargon
+- **Implementation**: `Tooltip` component in `src/app/components/ui/tooltip.tsx`
+- **Usage**: Place next to labels or terms that need explanation
+
+Example:
+```tsx
+<dt className="text-slate-300 flex items-center gap-2">
+  Pending escrow
+  <Tooltip content="Time tokens held in escrow for active bookings. Released upon completion or cancellation." />
+</dt>
+```
 
 ## UX copywriting pass (FE-DESIGN-030)
 
 The dashboard copy was updated to improve clarity, trust, and scan speed:
 
-- Stronger intent labels (for example, `Connect Wallet` and `View booking details`)
-- State-aware microcopy for loading and empty states
+- Stronger intent labels (for example, `Connect Wallet` and `Review wallet`)
+- State-aware wallet microcopy for connected, disconnected, and error states
+- Explicit wording to clarify that no transactions occur until the user confirms them
 - Added helper text to explain booking and wallet flow in plain language
 
-Scope is intentionally lightweight and contained to `src/app/dashboard/page.tsx` for easy review.
+Scope is intentionally lightweight and contained to `src/app/dashboard/page.tsx` and `src/components/dashboard/wallet-card.tsx` for easy review.
 
 ## Contributing
 

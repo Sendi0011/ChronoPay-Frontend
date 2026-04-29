@@ -1,3 +1,4 @@
+import { Tooltip } from "@/app/components/ui/tooltip";
 import type { BookingStage } from "./types";
 
 function toElementId(value: string) {
@@ -11,18 +12,24 @@ export function BookingProgress({ stages }: { stages: BookingStage[] }) {
   const maxValue = Math.max(...stages.map((stage) => stage.value), 1);
 
   return (
-    <div
-      className="space-y-5"
-      role="list"
-      aria-label="Booking progress by stage"
-      aria-live="polite"
-    >
-      {stages.map((stage, index) => {
-        const stageId = `booking-stage-${toElementId(stage.label)}-${index + 1}`;
-        const labelId = `${stageId}-label`;
-        const valueId = `${stageId}-value`;
-
-        return (
+    <div className="space-y-5">
+      {stages.map((stage) => (
+        <div key={stage.label}>
+          <div className="mb-2 flex items-center justify-between gap-3">
+            <div className="flex items-center gap-2">
+              <p className="text-sm font-medium text-white">{stage.label}</p>
+              <Tooltip
+                content={
+                  stage.label === "Reserved"
+                    ? "Time slots requested but not yet confirmed by you."
+                    : stage.label === "Confirmed"
+                    ? "Bookings approved and scheduled for delivery."
+                    : "Successfully completed time token transactions."
+                }
+              />
+            </div>
+            <p className="text-sm text-slate-300">{stage.value} bookings</p>
+          </div>
           <div
             key={`${stage.label}-${index}`}
             role="listitem"
