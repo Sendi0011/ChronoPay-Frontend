@@ -89,6 +89,24 @@ Clickable cards and panels use consistent hover and press (active) styles to cla
 
 This ensures users can easily identify interactive elements while maintaining a clean, non-cluttered interface.
 
+## Button guidelines
+
+Buttons and button-links use a standardized set of variants and sizes to ensure consistent UI across the dashboard.
+
+**Variants**
+- `primary`: High-contrast cyan button for primary actions (e.g., submitting forms, primary CTAs).
+- `secondary`: Subtle outline button with hover effects for secondary actions.
+- `ghost`: Text-only button for low-emphasis actions or tertiary links.
+
+**Sizes**
+- `sm`: Small padding and text size (`px-3 py-1.5 text-xs`).
+- `md`: Default size for standard actions (`px-4 py-2.5 text-sm`).
+- `lg`: Large padding for prominent CTAs (`px-6 py-3 text-base`).
+
+**Implementation Details**
+- **Component**: Use the `ButtonLink` component (`src/app/components/ui/button-link.tsx`) when navigating.
+- **Native Buttons**: For native `<button>` elements (e.g., in `wallet-card.tsx`), apply the exact same classes used in the `ButtonLink` variants for consistency.
+- **States**: The disabled state adds `pointer-events-none opacity-50`. Focus states use a high-contrast cyan ring (`focus-visible:ring-cyan-300`).
 ## Help text / tooltip pattern
 
 For complex concepts like booking progress, wallet state, and fees, we use accessible help tooltips:

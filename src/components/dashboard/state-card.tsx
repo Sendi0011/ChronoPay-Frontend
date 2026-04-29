@@ -89,7 +89,7 @@ export function StateCard({ state }: { state: StateType }) {
         type="button"
         aria-label={buttonLabel}
         aria-describedby={messageId}
-        className="mt-5 inline-flex rounded-full border border-white/15 px-4 py-2 text-sm font-medium text-white motion-safe:transition hover:bg-white/8 active:bg-white/12 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
+        className="mt-5 inline-flex items-center justify-center rounded-full font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 px-4 py-2.5 text-sm border border-white/12 bg-white/6 text-slate-100 hover:border-cyan-200/30 hover:bg-white/10"
       >
         {state === "error" ? "Retry sync" : "Review details"}
       </button>

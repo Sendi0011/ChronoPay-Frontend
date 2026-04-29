@@ -109,9 +109,6 @@ export default function Dashboard() {
           <SlotList slots={slots} />
         </PanelShell>
 
-        {/* Design QA Checklist (IMPORTANT FOR ISSUE) */}
-        <DesignChecklist />
-
       </main>
     </div>
   );
