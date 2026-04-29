@@ -1,4 +1,5 @@
 import { StatusChip } from "./status-chip";
+import { Tooltip } from "@/app/components/ui/tooltip";
 import type { WalletSnapshot } from "./types";
 
 const statusTone = {
@@ -34,19 +35,12 @@ export function WalletCard({ wallet }: { wallet: WalletSnapshot }) {
   const showDetails = wallet.connection === "connected";
 
   return (
-    <article className="rounded-[24px] border border-cyan-400/20 bg-[linear-gradient(160deg,rgba(14,116,144,0.18),rgba(15,23,42,0.92))] p-6 shadow-lg shadow-slate-950/20">
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-        <div>
-          <p className="text-sm text-cyan-100/80">
-            {showDetails ? "Primary wallet" : "Stellar wallet"}
-          </p>
-          {wallet.address ? (
-            <p className="mt-2 text-sm text-slate-300">
-              {truncateAddress(wallet.address)}
-            </p>
-          ) : null}
-          <p className="mt-4 text-3xl font-semibold tracking-tight text-white">
-            {showDetails ? wallet.balance : "Wallet data unavailable"}
+    <article className="rounded-[24px] border border-cyan-400/20 bg-[linear-gradient(160deg,rgba(14,116,144,0.18),rgba(15,23,42,0.92))] p-5">
+      <div className="flex items-start justify-between gap-4">
+        <div className="min-w-0">
+          <p className="text-sm text-cyan-100/80">Primary wallet</p>
+          <p className="mt-3 truncate text-2xl font-semibold tracking-tight text-white sm:text-3xl">
+            {wallet.balance}
           </p>
         </div>
 
@@ -58,30 +52,23 @@ export function WalletCard({ wallet }: { wallet: WalletSnapshot }) {
             : "Disconnected"}
         </StatusChip>
       </div>
-
-      {showDetails ? (
-        <dl className="mt-6 space-y-4 text-sm text-slate-200">
-          <div className="flex items-center justify-between gap-4">
-            <dt className="text-slate-300">Pending escrow</dt>
-            <dd className="font-medium text-white">{wallet.pending}</dd>
-          </div>
-          <div className="flex items-center justify-between gap-4">
-            <dt className="text-slate-300">Next payout</dt>
-            <dd className="font-medium text-white">{wallet.nextPayout}</dd>
-          </div>
-        </dl>
-      ) : null}
-
-      <p className="mt-6 text-sm leading-6 text-cyan-100/75">{statusCopy[wallet.connection]}</p>
-      <button
-        type="button"
-        className="mt-5 inline-flex items-center justify-center rounded-2xl bg-white px-4 py-2 text-sm font-semibold text-slate-950 transition hover:bg-zinc-200"
-      >
-        {actionLabel[wallet.connection]}
-      </button>
-      <p className="mt-4 text-xs uppercase tracking-[0.18em] text-slate-500">
-        {wallet.status}
-      </p>
+      <dl className="mt-6 space-y-4">
+        <div className="flex items-center justify-between gap-4 text-sm">
+          <dt className="text-slate-300 flex items-center gap-2">
+            Pending escrow
+            <Tooltip content="Time tokens held in escrow for active bookings. Released upon completion or cancellation." />
+          </dt>
+          <dd className="font-medium text-white">{wallet.pending}</dd>
+        </div>
+        <div className="flex items-center justify-between gap-4 text-sm">
+          <dt className="text-slate-300 flex items-center gap-2">
+            Next payout
+            <Tooltip content="Scheduled release of earnings from completed time token transactions." />
+          </dt>
+          <dd className="font-medium text-white">{wallet.nextPayout}</dd>
+        </div>
+      </dl>
+      <p className="mt-6 text-sm text-cyan-100/75">{wallet.status}</p>
     </article>
   );
 }
