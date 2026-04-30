@@ -1,5 +1,4 @@
-import Link from "next/link";
-
+import { ButtonLink } from "@/app/components/ui/button-link";
 import { StatusChip } from "./status-chip";
 import type { QuickAction, Tone } from "./types";
 
@@ -10,21 +9,13 @@ const toneLabels: Record<Tone, string> = {
   critical: "Needs attention",
 };
 
-function toElementId(value: string) {
-  return value
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/(^-|-$)/g, "");
-}
-
 export function QuickActions({ actions }: { actions: QuickAction[] }) {
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
       {actions.map((action) => (
-        <Link
+        <div
           key={action.title}
-          href={action.href}
-          className="group rounded-[24px] border border-white/10 bg-slate-900/80 p-5 motion-safe:transition hover:-translate-y-0.5 hover:border-cyan-300/40 hover:bg-slate-900 active:-translate-y-0 active:border-cyan-300/60 active:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
+          className="group rounded-[24px] border border-white/10 bg-slate-900/80 p-5 motion-safe:transition hover:border-cyan-300/40 hover:bg-slate-900 flex flex-col justify-between"
         >
           <div className="flex items-start justify-between gap-3">
             <div>
@@ -33,10 +24,15 @@ export function QuickActions({ actions }: { actions: QuickAction[] }) {
                 {action.description}
               </p>
             </div>
-            <StatusChip tone={action.tone} />
+            <StatusChip tone={action.tone}>{toneLabels[action.tone]}</StatusChip>
           </div>
-        </Link>
-      })}
+          <div className="mt-6 flex justify-end">
+            <ButtonLink href={action.href} variant="secondary" size="md">
+              View {action.title}
+            </ButtonLink>
+          </div>
+        </div>
+      ))}
     </div>
   );
 }

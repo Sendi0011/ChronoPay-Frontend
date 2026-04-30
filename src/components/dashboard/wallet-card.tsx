@@ -15,25 +15,7 @@ const actionLabel = {
   error: "Retry connection",
 } as const;
 
-const statusCopy = {
-  connected:
-    "Your wallet is linked for viewing balance and payout details. No transfers happen without your explicit authorization.",
-  disconnected:
-    "Connect your Stellar wallet to start minting and managing time-token bookings in ChronoPay.",
-  error:
-    "Wallet connection was interrupted. Retry to refresh your connection before continuing.",
-} as const;
-
-function truncateAddress(address: string) {
-  if (address.length <= 24) {
-    return address;
-  }
-
-  return `${address.slice(0, 10)}…${address.slice(-10)}`;
-}
-
 export function WalletCard({ wallet }: { wallet: WalletSnapshot }) {
-  const showDetails = wallet.connection === "connected";
 
   const titleId = useId();
   const balanceId = useId();
@@ -88,7 +70,7 @@ export function WalletCard({ wallet }: { wallet: WalletSnapshot }) {
       </p>
       <button
         type="button"
-        className="mt-6 inline-flex rounded-full border border-white/15 px-4 py-2 text-sm font-medium text-white motion-safe:transition hover:bg-white/8 active:bg-white/12 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
+        className="mt-6 inline-flex items-center justify-center rounded-full font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 px-4 py-2.5 text-sm border border-white/12 bg-white/6 text-slate-100 hover:border-cyan-200/30 hover:bg-white/10"
       >
         {actionLabel[wallet.connection]}
       </button>
