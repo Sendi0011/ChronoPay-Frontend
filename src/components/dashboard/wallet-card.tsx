@@ -154,23 +154,9 @@ export function WalletCard({ wallet }: { wallet: WalletSnapshot }) {
       >
         {wallet.status}
       </p>
-
-      <div className="mt-6">
-        <AsyncButton
-          onAction={handleWalletAction}
-          labels={buttonLabels[wallet.connection]}
-          variant={isConnected ? "secondary" : "primary"}
-          size="md"
-          describedBy={statusId}
-          onError={() =>
-            toast({
-              variant: "error",
-              title: "Wallet action failed",
-              description: "Could not reach the Stellar RPC node. Try again.",
-            })
-          }
-        />
-      </div>
+      <button type="button" className="focus-ring-cyan">
+        {actionLabel[wallet.connection]}
+      </button>
     </article>
   );
 }
